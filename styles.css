@@ -3,17 +3,42 @@
 }
 
 :root {
-  --cell-size: 100px;
+  --cell-size: 160px;
   --item-size: calc(var(--cell-size) * .9);
+  --border-size: 2px;
 }
 
 body {
   margin: 0;
 }
 
+.column {
+  float: inline-start;
+  padding: 10px;
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+.row:after {
+  content: "";
+  /* display: table; */
+  clear: both;
+}
+
+/* responsive column layout */
+@media screen and (max-width: 1000px) {
+  .column {
+    width: 100%;
+  }
+}
+
 .board {
-  width: 100vw;
-  height: 100vh;
   display: grid;
   justify-content: center;
   align-content: center;
@@ -23,9 +48,9 @@ body {
 }
 
 .cell {
-  width: var(--cell-size);
   height: var(--cell-size);
-  border: 1px solid black;
+  width: var(--cell-size);
+  border: solid var(--border-size) black;
   /* for items in grid */
   display: flex;
   justify-content: center;
@@ -52,65 +77,17 @@ body {
   border-bottom: none;
 }
 
-/* styles for item pieces */
-.cell.red,
-.cell.blue {
-  cursor: not-allowed;
-}
-
-.cell.red::before {
-  background-color: red;
-}
-.cell.blue::before {
-  background-color: blue;
-}
-.board.red .cell:not(.red):not(.blue):hover::before {
-  background-color: lightcoral;
-}
-.board.blue .cell:not(.red):not(.blue):hover::before {
-  background-color: lightblue;
-}
-
-.cell.red::before,
-.cell.red::after,
-.board.red .cell:not(.red):not(.blue):hover::before,
-.board.red .cell:not(.red):not(.blue):hover::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  
-}
-.cell.red::before,
-.board.red .cell:not(.red):not(.blue):hover::before {
-  width: var(--item-size);
+.fill {
+  background-image: url('https://source.unsplash.com/random/150x150');
+  /* position: relative; */
   height: var(--item-size);
-}
-.cell.red::after,
-.board.red .cell:not(.red):not(.blue):hover::after {
-  width: calc(var(--item-size) * .7);
-  height: calc(var(--item-size) * .7);
-  background-color: white;
-}
-
-
-.cell.blue::before,
-.cell.blue::after,
-.board.blue .cell:not(.red):not(.blue):hover::before,
-.board.blue .cell:not(.red):not(.blue):hover::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-}
-.cell.blue::before,
-.board.blue .cell:not(.red):not(.blue):hover::before {
   width: var(--item-size);
-  height: var(--item-size);
+  top: var(--border-size)*.5;
+  left: var(--border-size)*.5;
 }
-.cell.blue::after,
-.board.blue .cell:not(.red):not(.blue):hover::after {
-  width: calc(var(--item-size) * .7);
-  height: calc(var(--item-size) * .7);
-  background-color: white;
+
+.hold {
+  border: solid var(--border-size) red;
 }
 
 /* restart page */
