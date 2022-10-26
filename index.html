@@ -11,26 +11,27 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="column left">
+    <div class="game">
+        <div class="row left">
             <div class="pieces">
-                <div class="fill" draggable="true"> </div>
+                <div class="piece" draggable="true"> </div>
+                <div class="piece" draggable="true"> </div>
             </div>
         </div>
-        <div class="column middle">
+        <div class="row middle">
             <div class="board">
+                <div class="cell dropAllowed"></div>
                 <div class="cell"></div>
                 <div class="cell"></div>
                 <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
+                <div class="cell dropAllowed"></div>
                 <div class="cell"></div>
                 <div class="cell"></div>
                 <div class="cell"></div>
                 <div class="cell"></div>
             </div>
         </div>
-        <div class="column right">
+        <div class="row right">
             <div class="pieces"></div>
         </div>
     </div>
