@@ -79,12 +79,12 @@ body {
 }
 
 .piece {
-  background-image: url('https://source.unsplash.com/random/150x150');
+  padding: 2px;
+  border: var(--border-size) solid white;
+  border-radius: calc(var(--item-size) * 2);
   /* position: relative; */
   height: var(--item-size);
   width: var(--item-size);
-  top: var(--border-size)*.4;
-  left: var(--border-size)*.4;
 }
 
 .dragging {
@@ -92,7 +92,7 @@ body {
 }
 
 .hold {
-  border: solid var(--border-size) red;
+  border: solid var(--border-size) black;
 }
 
 .hovering {
