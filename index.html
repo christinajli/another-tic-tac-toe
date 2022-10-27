@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
-    <title>Advanced Tic-Tac-Toe</title>
+    <title>Another Tic-Tac-Toe</title>
 </head>
+
 <body>
-    <div class="board" id="board">
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
-        <div class="cell" data-cell></div>
+    <div class="game">
+        <div class="row left">
+            <div class="pieces">
+                <div class="piece" draggable="true"> </div>
+                <div class="piece" draggable="true"> </div>
+            </div>
+        </div>
+        <div class="row middle">
+            <div class="board">
+                <div class="cell dropAllowed"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell dropAllowed"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div class="row right">
+            <div class="pieces"></div>
+        </div>
     </div>
     <div class="winning-message" id="winning-message">
         <div data-winning-message-text></div>
         <button id="restart-button">Restart</button>
     </div>
 </body>
+
 </html>

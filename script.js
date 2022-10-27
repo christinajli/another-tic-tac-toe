@@ -1,17 +1,18 @@
 const RED_CLASS = 'red'
 const BLUE_CLASS = 'blue'
 const WINNING_COMBINATION = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
 ]
 let redTurn
-const cellElements = document.querySelectorAll('[data-cell]')
+const pieceElements = document.querySelectorAll('.piece');
+const cellElements = document.querySelectorAll('.cell');
 const board = document.getElementById('board')
 const winningMessageElement = document.getElementById('winning-message')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
@@ -21,82 +22,74 @@ startGame()
 
 restartButton.addEventListener('click', startGame)
 
+// Loop through pieces and add listeners
+for (const piece of pieceElements) {
+  piece.addEventListener('dragstart', dragStart);
+  piece.addEventListener('dragend', dragEnd);
+}
+
+// Loop through empty cells and add listeners
+for (const cell of cellElements) {
+  cell.addEventListener('dragover', dragOver);
+  cell.addEventListener('dragenter', dragEnter);
+  cell.addEventListener('dragleave', dragLeave);
+  cell.addEventListener('drop', dragDrop);
+}
+
 function startGame() {
-    redTurn = true
-    cellElements.forEach(cell => {
-        cell.classList.remove(RED_CLASS)
-        cell.classList.remove(BLUE_CLASS)
-        cell.removeEventListener('click', handleClick)
-        cell.addEventListener('click', handleClick, {once: true})
-    })
-    setBoardHoverClass()
-    //reset to initial board
-    winningMessageElement.classList.remove('show')
+  redTurn = true
+  //reset to initial board
+  winningMessageElement.classList.remove('show')
 }
 
-function handleClick(e) {
-    const cell = e.target
-    const currentClass = redTurn ? RED_CLASS : BLUE_CLASS
+// Reference on item being dragged
+let dragged
 
-    //place item
-    placeItem(cell, currentClass)
-    //check for win condition
-    if (checkWin(currentClass)) {
-        endGame(false)
-    }
-    //check for draw condition
-    else if (isDraw()){
-        endGame(true)
-    } 
-    //switch turns
-    else {
-        swapTurns()
-        setBoardHoverClass()
-    }
+// Drag functions for pieces
+function dragStart(e) {
+  dragged = e.target;
+  e.target.classList.add('hold');
+  e.target.classList.add('dragging');
 }
 
-function placeItem(cell, currentClass) {
-    cell.classList.add(currentClass)
+function dragEnd(e) {
+  e.target.classList.remove('hold');
+  e.target.classList.remove('dragging');
 }
 
-function swapTurns() {
-    redTurn = !redTurn
+// Drag functions for board
+function dragOver(e) {
+  e.preventDefault();
 }
 
-function setBoardHoverClass() {
-    board.classList.remove(RED_CLASS)
-    board.classList.remove(BLUE_CLASS)
-    if (redTurn) {
-        board.classList.add(RED_CLASS)
-    } else {
-        board.classList.add(BLUE_CLASS)
-    }
+function dragEnter(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('dropAllowed')) {
+    e.target.classList.add('hovering');
+  }
 }
 
-function checkWin(currentClass) {
-    //at least one combination
-    return WINNING_COMBINATION.some(combination => {
-        //check for each winning combination
-        return combination.every(index => {
-            //if current class is in all three element in combination
-            return cellElements[index].classList.contains(currentClass)
-        })
-    })
+function dragLeave(e) {
+  if (e.target.classList.contains('dropAllowed')) {
+    e.target.classList.remove('hovering');
+  }
+}
+
+function dragDrop(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('dropAllowed')) {
+    e.target.classList.remove('hovering');
+    e.target.classList.remove('dropAllowed');
+    dragged.parentNode.removeChild(dragged);
+    e.target.appendChild(dragged);
+  }
 }
 
 function endGame(draw) {
-    if (draw) {
-        winningMessageTextElement.innerText = 'Draw!'
-    } else {
-        winningMessageTextElement.innerText = `${redTurn ? "Red" : "Blue"} Wins!`
-    }
-    winningMessageElement.classList.add('show')
-}
-
-function isDraw() {
-    //every cell element is filled
-    return [...cellElements].every(cell => {
-        return cell.classList.contains(RED_CLASS) ||
-               cell.classList.contains(BLUE_CLASS)
-    })
+  if (draw) {
+    winningMessageTextElement.innerText = 'Draw!'
+  } else {
+    winningMessageTextElement.innerText = `${redTurn ? "Red" : "Blue"} Wins!`
+  }
+  winningMessageElement.classList.add('show')
 }
