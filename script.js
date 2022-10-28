@@ -50,8 +50,9 @@ function startGame() {
 
   // Loop through empty cells and add listeners
   for (const cell of cellElements) {
-    cell.classList.remove(RED_CLASS)
-    cell.classList.remove(BLUE_CLASS)
+    cell.classList.remove(RED_CLASS);
+    cell.classList.remove(BLUE_CLASS);
+    cell.classList.add('dropAllowed');
 
     cell.addEventListener('dragover', dragOver);
     cell.addEventListener('dragenter', dragEnter);
@@ -67,12 +68,10 @@ let dragged
 // Drag functions for pieces
 function dragStart(e) {
   dragged = e.target;
-  e.target.classList.add('hold');
   e.target.classList.add('dragging');
 }
 
 function dragEnd(e) {
-  e.target.classList.remove('hold');
   e.target.classList.remove('dragging');
 }
 
@@ -105,28 +104,38 @@ function dragDrop(e) {
     dragged.parentNode.removeChild(dragged);
     e.target.appendChild(dragged);
 
-    // After placing new piece
-    // check for win condition
-    if (checkWin(currentClass)) {
-      endGame(false)
-    }
-    // //check for draw condition
-    // else if (isDraw()) {
-    //   endGame(true)
-    // }
-    // //switch turns
-    // else {
-    //   swapTurns()
-    //   setBoardHoverClass()
-    // }
+    // console.log('leftside ' + leftSide.childNodes.length);
+    // console.log('rightside ' + rightSide.childNodes.length);
 
-    //swapTurns();
+    // After placing new piece check for win condition
+    if (checkWin(currentClass)) {
+      endGame(false);
+    }
+    // // Check for draw condition
+    // else if (isDraw()) {
+    //   endGame(true);
+    // }
+    // Switch turns
+    else {
+      swapTurns();
+    }
   }
 }
 
+// Helper functions for game
 function swapTurns() {
   redTurn = !redTurn;
   currentClass = redTurn ? RED_CLASS : BLUE_CLASS;
+
+  // Set current class as draggable
+  for (const piece of pieceElements) {
+    if (piece.classList.contains(currentClass)) {
+      piece.setAttribute('draggable', 'true');
+    }
+    else {
+      piece.setAttribute('draggable', 'false');
+    }
+  }
 }
 
 function checkWin(currentClass) {
@@ -139,6 +148,10 @@ function checkWin(currentClass) {
     })
   })
 }
+
+// function isDraw() {
+//   return (!leftSide.hasChildNodes() && !rightSide.hasChildNodes());
+// }
 
 function endGame(draw) {
   if (draw) {
