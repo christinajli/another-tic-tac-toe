@@ -88,10 +88,7 @@ body {
 }
 
 .dragging {
-  opacity: 0.5
-}
-
-.hold {
+  opacity: 0.5;
   border: solid var(--border-size) black;
 }
 
