@@ -92,8 +92,12 @@ body {
   border: solid var(--border-size) black;
 }
 
-.hovering {
+.red-hovering {
   background: pink;
+}
+
+.blue-hovering {
+  background: cornflowerblue;
 }
 
 /* restart page */
