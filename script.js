@@ -15,8 +15,8 @@ let currentClass
 const pieceElements = document.querySelectorAll('.piece');
 const cellElements = document.querySelectorAll('.cell');
 const board = document.getElementById('board')
-const leftSide = document.getElementById('left-pieces')
-const rightSide = document.getElementById('right-pieces')
+const leftSide = document.getElementById('left-pieces');
+const rightSide = document.getElementById('right-pieces');
 const winningMessageElement = document.getElementById('winning-message')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
 const restartButton = document.getElementById('restart-button')
@@ -83,20 +83,24 @@ function dragOver(e) {
 function dragEnter(e) {
   e.preventDefault();
   if (e.target.classList.contains('dropAllowed')) {
-    e.target.classList.add('hovering');
+    e.target.classList.add(hoveringTag());
   }
 }
 
 function dragLeave(e) {
   if (e.target.classList.contains('dropAllowed')) {
-    e.target.classList.remove('hovering');
+    e.target.classList.remove(hoveringTag());
   }
+}
+
+function hoveringTag() {
+  return redTurn ? 'red-hovering' : 'blue-hovering';
 }
 
 function dragDrop(e) {
   e.preventDefault();
   if (e.target.classList.contains('dropAllowed')) {
-    e.target.classList.remove('hovering');
+    e.target.classList.remove(hoveringTag());
     e.target.classList.remove('dropAllowed');
     e.target.classList.add(currentClass);
 
@@ -104,17 +108,14 @@ function dragDrop(e) {
     dragged.parentNode.removeChild(dragged);
     e.target.appendChild(dragged);
 
-    // console.log('leftside ' + leftSide.childNodes.length);
-    // console.log('rightside ' + rightSide.childNodes.length);
-
     // After placing new piece check for win condition
     if (checkWin(currentClass)) {
       endGame(false);
     }
-    // // Check for draw condition
-    // else if (isDraw()) {
-    //   endGame(true);
-    // }
+    // Check for draw condition
+    else if (isDraw()) {
+      endGame(true);
+    }
     // Switch turns
     else {
       swapTurns();
@@ -149,9 +150,9 @@ function checkWin(currentClass) {
   })
 }
 
-// function isDraw() {
-//   return (!leftSide.hasChildNodes() && !rightSide.hasChildNodes());
-// }
+function isDraw() {
+  return (!leftSide.childElementCount && !rightSide.childElementCount);
+}
 
 function endGame(draw) {
   if (draw) {
