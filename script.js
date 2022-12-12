@@ -14,9 +14,9 @@ const WINNING_COMBINATION = [
   [2, 4, 6]
 ]
 const PIECE_SIZES = {
- lg: '144px',
- med: '114px',
- sm: '84px'
+  lg: '144px',
+  med: '114px',
+  sm: '84px'
 }
 
 let redTurn
@@ -108,8 +108,27 @@ function dragOver(e) {
 
 function dragEnter(e) {
   e.preventDefault();
-  if (e.target.classList.contains('dropAllowed')) {
+  if (e.target.lastChild) {
+    console.log()
+  }
+  if (e.target.classList.contains('dropAllowed') &&
+    allowReplace(e.target.lastChild)) {
     e.target.classList.add(hoveringTag());
+  }
+}
+
+function allowReplace(child) {
+  if (child) {
+    var compare_small = child.classList.contains(SMALL_CLASS) &&
+      (dragged.classList.contains(LARGE_CLASS) || dragged.classList.contains(MED_CLASS))
+
+    var compare_med = child.classList.contains(MED_CLASS) &&
+      dragged.classList.contains(LARGE_CLASS)
+
+    return (compare_small || compare_med) && !child.classList.contains(currentClass)
+  }
+  else {
+    return true
   }
 }
 
@@ -127,11 +146,17 @@ function dragDrop(e) {
   e.preventDefault();
   if (e.target.classList.contains('dropAllowed')) {
     e.target.classList.remove(hoveringTag());
-    e.target.classList.remove('dropAllowed');
+    if (dragged.classList.contains(LARGE_CLASS)) {
+      e.target.classList.remove('dropAllowed');
+    }
     e.target.classList.add(currentClass);
 
     dragged.setAttribute('draggable', 'false');
     dragged.parentNode.removeChild(dragged);
+
+    if (e.target.lastChild) {
+      e.target.removeChild(e.target.lastChild);
+    }
     e.target.appendChild(dragged);
 
     // After placing new piece check for win condition
