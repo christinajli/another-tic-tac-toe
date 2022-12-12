@@ -117,21 +117,6 @@ function dragEnter(e) {
   }
 }
 
-function allowReplace(child) {
-  if (child) {
-    var compare_small = child.classList.contains(SMALL_CLASS) &&
-      (dragged.classList.contains(LARGE_CLASS) || dragged.classList.contains(MED_CLASS))
-
-    var compare_med = child.classList.contains(MED_CLASS) &&
-      dragged.classList.contains(LARGE_CLASS)
-
-    return (compare_small || compare_med) && !child.classList.contains(currentClass)
-  }
-  else {
-    return true
-  }
-}
-
 function dragLeave(e) {
   if (e.target.classList.contains('dropAllowed')) {
     e.target.classList.remove(hoveringTag());
@@ -144,12 +129,13 @@ function hoveringTag() {
 
 function dragDrop(e) {
   e.preventDefault();
-  if (e.target.classList.contains('dropAllowed')) {
+  if (e.target.classList.contains('dropAllowed') &&
+    allowReplace(e.target.lastChild))
+  {
     e.target.classList.remove(hoveringTag());
     if (dragged.classList.contains(LARGE_CLASS)) {
       e.target.classList.remove('dropAllowed');
     }
-    e.target.classList.add(currentClass);
 
     dragged.setAttribute('draggable', 'false');
     dragged.parentNode.removeChild(dragged);
@@ -175,6 +161,21 @@ function dragDrop(e) {
 }
 
 // Helper functions for game
+function allowReplace(child) {
+  if (child) {
+    var compare_small = child.classList.contains(SMALL_CLASS) &&
+      (dragged.classList.contains(LARGE_CLASS) || dragged.classList.contains(MED_CLASS))
+
+    var compare_med = child.classList.contains(MED_CLASS) &&
+      dragged.classList.contains(LARGE_CLASS)
+
+    return (compare_small || compare_med)
+  }
+  else {
+    return true
+  }
+}
+
 function swapTurns() {
   redTurn = !redTurn;
   currentClass = redTurn ? RED_CLASS : BLUE_CLASS;
@@ -196,7 +197,12 @@ function checkWin(currentClass) {
     //check for each winning combination
     return combination.every(index => {
       //if current class is in all three element in combination
-      return cellElements[index].classList.contains(currentClass)
+      if (cellElements[index].lastChild) {
+        return cellElements[index].lastChild.classList.contains(currentClass)
+      }
+      else {
+        return false;
+      }
     })
   })
 }
