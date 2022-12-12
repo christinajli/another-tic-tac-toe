@@ -1,5 +1,8 @@
 const RED_CLASS = 'red'
 const BLUE_CLASS = 'blue'
+const SMALL_CLASS = 'sm'
+const MED_CLASS = 'med'
+const LARGE_CLASS = 'lg'
 const WINNING_COMBINATION = [
   [0, 1, 2],
   [3, 4, 5],
@@ -10,32 +13,38 @@ const WINNING_COMBINATION = [
   [0, 4, 8],
   [2, 4, 6]
 ]
+const PIECE_SIZES = {
+ lg: '144px',
+ med: '114px',
+ sm: '84px'
+}
+
 let redTurn
 let currentClass
 const pieceElements = document.querySelectorAll('.piece');
 const cellElements = document.querySelectorAll('.cell');
-const board = document.getElementById('board')
+const board = document.getElementById('board');
 const leftSide = document.getElementById('left-pieces');
 const rightSide = document.getElementById('right-pieces');
-const winningMessageElement = document.getElementById('winning-message')
-const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
-const restartButton = document.getElementById('restart-button')
+const winningMessageElement = document.getElementById('winning-message');
+const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
+const restartButton = document.getElementById('restart-button');
+restartButton.addEventListener('click', startGame);
 
 startGame()
-
-restartButton.addEventListener('click', startGame)
 
 function startGame() {
   // Reset to initial board
   redTurn = true;
   currentClass = RED_CLASS;
 
-  // Loop through pieces and add listeners
+  // Loop through pieces
   for (const piece of pieceElements) {
-
+    // add listeners for pieces
     piece.addEventListener('dragstart', dragStart);
     piece.addEventListener('dragend', dragEnd);
 
+    // separate red and blue pieces
     if (piece.classList.contains(RED_CLASS)) {
       piece.style.backgroundColor = 'red';
       piece.setAttribute('draggable', 'true');
@@ -46,14 +55,31 @@ function startGame() {
       piece.setAttribute('draggable', 'false');
       rightSide.appendChild(piece);
     }
+
+    // set pieces size
+    // TODO: more efficient way to set pieces size
+    if (piece.classList.contains(SMALL_CLASS)) {
+      piece.style.height = PIECE_SIZES.sm
+      piece.style.width = PIECE_SIZES.sm
+    }
+    if (piece.classList.contains(MED_CLASS)) {
+      piece.style.height = PIECE_SIZES.med
+      piece.style.width = PIECE_SIZES.med
+    }
+    if (piece.classList.contains(LARGE_CLASS)) {
+      piece.style.height = PIECE_SIZES.lg
+      piece.style.width = PIECE_SIZES.lg
+    }
   }
 
-  // Loop through empty cells and add listeners
+  // Loop through empty cells
   for (const cell of cellElements) {
+    // remove previous tags
     cell.classList.remove(RED_CLASS);
     cell.classList.remove(BLUE_CLASS);
     cell.classList.add('dropAllowed');
 
+    // add listeners for cells
     cell.addEventListener('dragover', dragOver);
     cell.addEventListener('dragenter', dragEnter);
     cell.addEventListener('dragleave', dragLeave);
