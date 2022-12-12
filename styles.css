@@ -4,7 +4,7 @@
 
 :root {
   --cell-size: 160px;
-  --item-size: calc(var(--cell-size) * .8);
+  --item-size: calc(var(--cell-size) * 0.9);
   --border-size: 2px;
 }
 
@@ -79,10 +79,9 @@ body {
 }
 
 .piece {
-  padding: 2px;
+  padding: var(--border-size);
   border: var(--border-size) solid white;
   border-radius: calc(var(--item-size) * 2);
-  /* position: relative; */
   height: var(--item-size);
   width: var(--item-size);
 }
