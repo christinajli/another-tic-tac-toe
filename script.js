@@ -108,9 +108,6 @@ function dragOver(e) {
 
 function dragEnter(e) {
   e.preventDefault();
-  if (e.target.lastChild) {
-    console.log()
-  }
   if (e.target.classList.contains('dropAllowed') &&
     allowReplace(e.target.lastChild)) {
     e.target.classList.add(hoveringTag());
@@ -208,7 +205,7 @@ function checkWin(currentClass) {
 }
 
 function isDraw() {
-  return (!leftSide.childElementCount && !rightSide.childElementCount);
+  return !leftSide.childElementCount || !rightSide.childElementCount;
 }
 
 function endGame(draw) {
