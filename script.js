@@ -48,11 +48,13 @@ function startGame() {
     if (piece.classList.contains(RED_CLASS)) {
       piece.style.backgroundColor = 'red';
       piece.setAttribute('draggable', 'true');
+      piece.style.cursor = 'grab';
       leftSide.appendChild(piece);
     }
     else if (piece.classList.contains(BLUE_CLASS)) {
       piece.style.backgroundColor = 'blue';
       piece.setAttribute('draggable', 'false');
+      piece.style.cursor = 'default';
       rightSide.appendChild(piece);
     }
 
@@ -94,10 +96,13 @@ let dragged
 // Drag functions for pieces
 function dragStart(e) {
   dragged = e.target;
+  e.target.style.cursor = 'grabbing';
   e.target.classList.add('dragging');
 }
 
 function dragEnd(e) {
+  e.preventDefault();
+  e.target.style.cursor = 'default';
   e.target.classList.remove('dragging');
 }
 
@@ -180,9 +185,11 @@ function swapTurns() {
   // Set current class as draggable
   for (const piece of pieceElements) {
     if (piece.classList.contains(currentClass)) {
+      piece.style.cursor = 'grab';
       piece.setAttribute('draggable', 'true');
     }
     else {
+      piece.style.cursor = 'default';
       piece.setAttribute('draggable', 'false');
     }
   }

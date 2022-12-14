@@ -56,8 +56,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* for hovering prior to item placement */
-  cursor: pointer;
 }
 
 /* to remove grid borders */
