@@ -212,7 +212,7 @@ function checkWin(currentClass) {
 }
 
 function isDraw() {
-  return !leftSide.childElementCount || !rightSide.childElementCount;
+  return !leftSide.childElementCount && !rightSide.childElementCount;
 }
 
 function endGame(draw) {
