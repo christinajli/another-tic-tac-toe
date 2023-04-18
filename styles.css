@@ -9,20 +9,42 @@
 }
 
 body {
-  margin: 0;
+  margin: 10px auto;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 100vh;
 }
 
 .row {
-  float: inline-start;
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  margin: 10px;
 }
 
-.left, .right {
+.left {
   width: 25%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .middle {
   width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  width: 25%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .game:after {
@@ -33,7 +55,7 @@ body {
 
 /* responsive column layout */
 @media screen and (max-width: 1000px) {
-  .row {
+  .game {
     width: 100%;
   }
 }
@@ -86,7 +108,7 @@ body {
 
 .dragging {
   opacity: 0.5;
-  border: solid var(--border-size) black;
+  box-shadow: 0px 0px 10px #333;
 }
 
 .red-hovering {
