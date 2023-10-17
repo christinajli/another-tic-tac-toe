@@ -107,7 +107,7 @@ body {
 
 .dragging {
   opacity: 0.5;
-  border: solid var(--border-size) black;
+  box-shadow: 0px 0px 10px #333;
 }
 
 .red-hovering {
