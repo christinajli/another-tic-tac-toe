@@ -7,38 +7,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
-    <title>Another Tic-Tac-Toe</title>
+    <title>Nesting Dolls Tic-Tac-Toe</title>
 </head>
 
 <body>
-    <div class="game">
-        <div id="left-pieces" class="row left">
-            <div class="piece red sm" draggable="true"> </div>
-            <div class="piece red sm" draggable="true"> </div>
+    <div id="left-pieces" class="pieces">
+        <div class="dragbox"> 
+            <div class="piece red sm"  draggable="true"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece red sm"  draggable="true"> </div>
+        </div>
+        <div class="dragbox"> 
             <div class="piece red med" draggable="true"> </div>
+        </div>
+        <div class="dragbox"> 
             <div class="piece red med" draggable="true"> </div>
-            <div class="piece red lg" draggable="true"> </div>
-            <div class="piece red lg" draggable="true"> </div>
         </div>
-        <div class="row middle board">
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
-            <div class="cell dropAllowed"></div>
+        <div class="dragbox"> 
+            <div class="piece red lg"  draggable="true"> </div>
         </div>
-        <div id="right-pieces" class="row right">
-            <div class="piece blue sm" draggable="true"> </div>
-            <div class="piece blue sm" draggable="true"> </div>
-            <div class="piece blue med" draggable="true"> </div>
-            <div class="piece blue med" draggable="true"> </div>
-            <div class="piece blue lg" draggable="true"> </div>
-            <div class="piece blue lg" draggable="true"> </div>
+        <div class="dragbox"> 
+            <div class="piece red lg"  draggable="true"> </div>
         </div>
+    </div>
+
+    <div class="board">
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+        <div class="cell dropAllowed"></div>
+    </div>
+
+    <div id="right-pieces" class="pieces">
+        <div class="dragbox"> 
+            <div class="piece blue sm"  draggable="false"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece blue sm"  draggable="false"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece blue med" draggable="false"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece blue med" draggable="false"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece blue lg"  draggable="false"> </div>
+        </div>
+        <div class="dragbox"> 
+            <div class="piece blue lg"  draggable="false"> </div>
+        </div>
+    </div>
     </div>
     <div id="winning-message" class="winning-message">
         <div data-winning-message-text></div>
