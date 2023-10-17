@@ -2,7 +2,7 @@
 
 ## Description
 
-An alternate Tic Tac Toe game made with vanilla Javascript. Play at: [https://christinajli.github.io/another-tic-tac-toe/]
+An alternate Tic Tac Toe game made with vanilla Javascript. Play at: [https://christinajli.github.io/nesting-dolls-tic-tac-toe/]
 
 ### Rules
 * Red starts
