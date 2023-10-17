@@ -27,16 +27,16 @@ An alternate Tic Tac Toe game made with vanilla Javascript. Play at: [https://ch
   - [x] if large pieces, remove dropAllowed tag
   - [x] if medium and small piexes, need to compare
   - [x] big piece replace small piece on board
-- [ ] align board center of screen
-- [ ] align red pieces of screen right of left block
+- [x] align board center of screen
 - [ ] allow drop anywhere in the cell, including on existing pieces
 - [x] pointer for selecting allowed pieces
-- [ ] allow whichever colour to start first
 - [ ] win animation with line through three
-- [ ] better layout of pieces, overlap same size ones 
 - [ ] add rules button and popup
+- [ ] win condition if draw when eat own piece
+- [ ] save red and blue win streaks
 
 ## Acknowledgments
 Inspiration, code snippets, etc.
 * [JavaScript-Tic-Tac-Toe](https://github.com/WebDevSimplified/JavaScript-Tic-Tac-Toe)
+* [Javascript drag and drop] (https://www.youtube.com/watch?v=3hUY9Mg2x6g&t=48s)
 * [Gobblet Gobblers](https://www.amazon.com/AFGQIANG-Tic-Tac-Toe-Surprise-Gobble-Classic/dp/B08NVDNH59)

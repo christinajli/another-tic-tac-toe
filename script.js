@@ -13,11 +13,6 @@ const WINNING_COMBINATION = [
   [0, 4, 8],
   [2, 4, 6]
 ]
-const PIECE_SIZES = {
-  lg: '144px',
-  med: '114px',
-  sm: '84px'
-}
 
 let redTurn
 let currentClass
@@ -29,7 +24,7 @@ const rightSide = document.getElementById('right-pieces');
 const winningMessageElement = document.getElementById('winning-message');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const restartButton = document.getElementById('restart-button');
-restartButton.addEventListener('click', startGame);
+restartButton.addEventListener('click', restartGame);
 
 startGame()
 
@@ -39,46 +34,24 @@ function startGame() {
   currentClass = RED_CLASS;
 
   // Loop through pieces
-  for (const piece of pieceElements) {
+  for (piece of pieceElements) {
     // add listeners for pieces
     piece.addEventListener('dragstart', dragStart);
     piece.addEventListener('dragend', dragEnd);
 
     // separate red and blue pieces
     if (piece.classList.contains(RED_CLASS)) {
-      piece.style.backgroundColor = 'red';
       piece.setAttribute('draggable', 'true');
       piece.style.cursor = 'grab';
-      leftSide.appendChild(piece);
     }
     else if (piece.classList.contains(BLUE_CLASS)) {
-      piece.style.backgroundColor = 'blue';
       piece.setAttribute('draggable', 'false');
       piece.style.cursor = 'default';
-      rightSide.appendChild(piece);
-    }
-
-    // set pieces size
-    // TODO: more efficient way to set pieces size
-    if (piece.classList.contains(SMALL_CLASS)) {
-      piece.style.height = PIECE_SIZES.sm
-      piece.style.width = PIECE_SIZES.sm
-    }
-    if (piece.classList.contains(MED_CLASS)) {
-      piece.style.height = PIECE_SIZES.med
-      piece.style.width = PIECE_SIZES.med
-    }
-    if (piece.classList.contains(LARGE_CLASS)) {
-      piece.style.height = PIECE_SIZES.lg
-      piece.style.width = PIECE_SIZES.lg
     }
   }
 
   // Loop through empty cells
-  for (const cell of cellElements) {
-    // remove previous tags
-    cell.classList.remove(RED_CLASS);
-    cell.classList.remove(BLUE_CLASS);
+  for (cell of cellElements) {
     cell.classList.add('dropAllowed');
 
     // add listeners for cells
@@ -183,7 +156,7 @@ function swapTurns() {
   currentClass = redTurn ? RED_CLASS : BLUE_CLASS;
 
   // Set current class as draggable
-  for (const piece of pieceElements) {
+  for (piece of pieceElements) {
     if (piece.classList.contains(currentClass)) {
       piece.style.cursor = 'grab';
       piece.setAttribute('draggable', 'true');
@@ -222,4 +195,8 @@ function endGame(draw) {
     winningMessageTextElement.innerText = `${redTurn ? "Red" : "Blue"} Wins!`
   }
   winningMessageElement.classList.add('show')
+}
+
+function restartGame() {
+  location.reload();
 }
