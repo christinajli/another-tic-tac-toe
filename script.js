@@ -18,9 +18,7 @@ let redTurn
 let currentClass
 const pieceElements = document.querySelectorAll('.piece');
 const cellElements = document.querySelectorAll('.cell');
-const board = document.getElementById('board');
-const leftSide = document.getElementById('left-pieces');
-const rightSide = document.getElementById('right-pieces');
+const boxElements = document.querySelectorAll('.dragbox');
 const winningMessageElement = document.getElementById('winning-message');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const restartButton = document.getElementById('restart-button');
@@ -185,7 +183,29 @@ function checkWin(currentClass) {
 }
 
 function isDraw() {
-  return !leftSide.childElementCount && !rightSide.childElementCount;
+  let redPieces = [];
+  let bluePieces = [];
+  boxElements.forEach(box => {
+    if(box.firstElementChild) {
+      if(box.firstElementChild.classList.contains(RED_CLASS)) {
+        redPieces.push(box.firstElementChild.classList);
+      } else if (box.firstElementChild.classList.contains(BLUE_CLASS)) {
+        bluePieces.push(box.firstElementChild.classList);
+      }
+    }
+  })
+
+  if (redPieces.length == 0 && bluePieces.length == 0) {
+    return true;
+  }
+  if (redPieces.length == 0 && bluePieces.length == 1 && bluePieces[0].contains(SMALL_CLASS)) {
+    return true;
+  }
+  if (bluePieces.length == 0 && redPieces.length == 1 && redPieces[0].contains(SMALL_CLASS)) {
+    return true;
+  }
+
+  return false;
 }
 
 function endGame(draw) {
